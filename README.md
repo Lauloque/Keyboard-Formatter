@@ -10,8 +10,12 @@ This Obsidian plugin allows you to select text within your notes and, with a sim
 ## Features
 
 - **Effortless Formatting:** Select text containing keyboard key names and press <kbd>Ctrl</kbd> <kbd>Y</kbd> to format them. For example`ctrl shift a` will become <kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
-- **Intelligent Recognition:** Recognizes common modifier keys (Ctrl, Shift, Alt, Cmd, Win, etc.) like "ctrl" as <kbd>⌘ Ctrl</kbd>, "shift" as <kbd>⇧ Shift</kbd>, "alt" as <kbd>⌥ Alt</kbd>, "cmd" or "command" as <kbd>⌘ Cmd</kbd>, "win" or "windows" as <kbd>Win</kbd>, etc. Also handles function keys (<kbd>F1</kbd>-<kbd>F12</kbd>), navigation keys (e.g., "tab" as <kbd>⇥ Tab</kbd>, "delete" as <kbd>⌦ Delete</kbd>, "enter" as <kbd>⏎ Enter</kbd>), and arrow keys (e.g., "up" as <kbd>↑ Up</kbd>, "left" as <kbd>← Left</kbd>, etc.).
-- **Mouse Button Formatting:** Formats mouse buttons like "lmb" as <kbd>Left 🖱️</kbd>, "rmb" as <kbd>Right 🖱️</kbd>, "mmb" as <kbd>Middle 🖱️</kbd>, and "wheel" or "scrollwheel" as <kbd>Wheel 🖱️</kbd>.
+- **Special Keys Recognition:**
+    - Common modifier keys: <kbd>&#9096; Ctrl</kbd> <kbd>&#8679; Shift</kbd> <kbd>&#9095; Alt</kbd> <kbd>&#8984; Cmd</kbd> <kbd>Win</kbd> etc.
+    - Function keys: <kbd>F1</kbd>-<kbd>F12</kbd>
+    - Command keys <kbd>⇥ Tab</kbd>, <kbd>⌦ Delete</kbd> <kbd>⏎ Enter</kbd>
+    - Arrow keys "up" and "left" become <kbd>↑ Up</kbd> <kbd>← Left</kbd>
+- **Mouse Button Formatting:** "lmb" as <kbd>Left 🖱️</kbd>, "rmb" as <kbd>Right 🖱️</kbd>, "mmb" as <kbd>Middle 🖱️</kbd>, and "wheel" or "scrollwheel" as <kbd>Wheel 🖱️</kbd>.
 - **Case-Insensitive Matching:** Key names are recognized regardless of their capitalization (e.g., "Ctrl", "ctrl", and "CTRL" all become <kbd>⌘ Ctrl</kbd>).
 - **Single Letter Capitalization:** Capitalizes single-letter words (useful for individual key presses), like "a" becoming <kbd>A</kbd>.
 - **Consistent Styling:** Uses HTML `<kbd>` tags, which can be easily styled with custom CSS to match your Obsidian theme.
