@@ -1,134 +1,99 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-// Remember to rename these classes and interfaces!
+export default class ObsidianKeyboardFormatter extends Plugin {
+    async onload() {
+        this.addCommand({
+            id: 'format-keyboard-text',
+            name: 'Format Keyboard Text',
+            hotkeys: [{ modifiers: ['Ctrl'], key: 'y' }],
+            editorCallback: (editor: Editor, ctx: MarkdownView | MarkdownFileInfo) => {
+                if (ctx instanceof MarkdownView) {
+                    this.formatText(editor);
+                }
+            }
+        });
+    }
 
-interface MyPluginSettings {
-	mySetting: string;
-}
+    async onunload() {
+        // Clean up resources if needed
+    }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
-}
+    formatText(editor: Editor) {
+        const selection = editor.getSelection();
+        const words = selection.match(/\S+/g) || [];
+        const formattedText: string[] = [];
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+        for (const word of words) {
+            const lowerWord = word.toLowerCase();
+            let replacement = word;
+            
+            switch (lowerWord) {
+                // Modifier Keys
+                case "control":
+                case "ctrl": replacement = "&#9096; Ctrl"; break;
+                case "shift": replacement = "&#8679; Shift"; break;
+                case "alt": replacement = "&#9095; Alt"; break;
+                case "caps":
+                case "capslock": replacement = "&#8682; Caps Lock"; break;
 
-	async onload() {
-		await this.loadSettings();
+                // OS Keys
+                case "win":
+                case "windows":
+                case "windowskey":
+                case "winkey": replacement = "Win"; break;
+                case "super":
+                case "linux":
+                case "linuxkey":
+                case "tuxkey": replacement = "&#8984; Super"; break;
+                case "meta": replacement = "&#9670; Meta"; break;
+                case "command":
+                case "cmd": replacement = "&#8984; Cmd"; break;
+                case "option":
+                case "opt": replacement = "&#8997; break";
 
-		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
-		});
-		// Perform additional things with the ribbon
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
+                // Function Keys
+                case "f1": case "f2": case "f3": case "f4":
+                case "f5": case "f6": case "f7": case "f8":
+                case "f9": case "f10": case "f11": case "f12":
+                    replacement = lowerWord.toUpperCase();
+                    break;
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
+                // Navigation & Special Keys
+                case "tab": replacement = "&#8633; Tab"; break;
+                case "delete":
+                case "del": replacement = "&#8998; Delete"; break;
+                case "enter":
+                case "return": replacement = "&#9166; Enter"; break;
+                case "backspace": replacement = "&#10229; Backspace"; break;
+                case "pageup":
+                case "pgup": replacement = "&#8670; Page Up"; break;
+                case "pagedown":
+                case "pgdn": replacement = "&#8671; Page Down"; break;
+                case "printscreen": replacement = "&#9113; Print Screen"; break;
 
-		// This adds a simple command that can be triggered anywhere
-		this.addCommand({
-			id: 'open-sample-modal-simple',
-			name: 'Open sample modal (simple)',
-			callback: () => {
-				new SampleModal(this.app).open();
-			}
-		});
-		// This adds an editor command that can perform some operation on the current editor instance
-		this.addCommand({
-			id: 'sample-editor-command',
-			name: 'Sample editor command',
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				console.log(editor.getSelection());
-				editor.replaceSelection('Sample Editor Command');
-			}
-		});
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
-		this.addCommand({
-			id: 'open-sample-modal-complex',
-			name: 'Open sample modal (complex)',
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
+                // Arrow Keys
+                case "up": replacement = "&#8593; Up"; break;
+                case "left": replacement = "&#8592; Left"; break;
+                case "right": replacement = "&#8594; Right"; break;
+                case "down": replacement = "&#8595; Down"; break;
 
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
-				}
-			}
-		});
+                // Mouse Buttons
+                case "lmb": replacement = "Left 🖱️"; break;
+                case "rmb": replacement = "Right 🖱️"; break;
+                case "mmb": replacement = "Middle 🖱️"; break;
+                case "wheel":
+                case "scrollwheel":
+                case "mousewheel":
+                case "mw": replacement = "Wheel 🖱️"; break;
+            }
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
+            if (replacement.length === 1) {
+                replacement = replacement.toUpperCase();
+            }
 
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
+            formattedText.push(`<kbd>${replacement}</kbd>`);
+        }
 
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
-	}
-
-	onunload() {
-
-	}
-
-	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-	}
-
-	async saveSettings() {
-		await this.saveData(this.settings);
-	}
-}
-
-class SampleModal extends Modal {
-	constructor(app: App) {
-		super(app);
-	}
-
-	onOpen() {
-		const {contentEl} = this;
-		contentEl.setText('Woah!');
-	}
-
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
-	}
-}
-
-class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
-
-	constructor(app: App, plugin: MyPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const {containerEl} = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
-			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
-				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
-					await this.plugin.saveSettings();
-				}));
-	}
+        editor.replaceSelection(formattedText.join(" "));
+    }
 }
