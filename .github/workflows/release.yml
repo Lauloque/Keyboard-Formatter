@@ -23,6 +23,15 @@ jobs:
           npm install
           npm run build
 
+      - name: Create release archive
+        run: |
+          mkdir keyboard-formatter
+          cp main.js keyboard-formatter/
+          cp manifest.json keyboard-formatter/
+          cp styles.css keyboard-formatter/
+          zip -r release.zip keyboard-formatter/
+          ls -l release.zip
+
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,4 +41,4 @@ jobs:
           gh release create "$tag" \
             --title="$tag" \
             --draft \
-            main.js manifest.json styles.css
+            main.js manifest.json styles.css release.zip
