@@ -15,7 +15,6 @@ export default class ObsidianKeyboardFormatter extends Plugin {
     }
 
     async onunload() {
-        // Clean up resources if needed
     }
 
     formatText(editor: Editor) {
