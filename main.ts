@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, MarkdownView, MarkdownFileInfo, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
 export default class ObsidianKeyboardFormatter extends Plugin {
     async onload() {
@@ -15,7 +15,6 @@ export default class ObsidianKeyboardFormatter extends Plugin {
     }
 
     async onunload() {
-        // Clean up resources if needed
     }
 
     formatText(editor: Editor) {
