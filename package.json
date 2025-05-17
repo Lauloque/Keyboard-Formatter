@@ -1,6 +1,6 @@
 {
 	"name": "Keyboard Formatter",
-	"version": "1.0.0",
+	"version": "1.0.1",
     "description": "Format selected text into HTML <kbd> tags for representing keyboard keys and mouse inputs.",
 	"main": "main.js",
 	"scripts": {
