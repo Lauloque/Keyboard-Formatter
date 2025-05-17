@@ -5,7 +5,6 @@ export default class ObsidianKeyboardFormatter extends Plugin {
         this.addCommand({
             id: 'format-keyboard-text',
             name: 'Format Keyboard Text',
-            hotkeys: [{ modifiers: ['Ctrl'], key: 'y' }],
             editorCallback: (editor: Editor, ctx: MarkdownView | MarkdownFileInfo) => {
                 if (ctx instanceof MarkdownView) {
                     this.formatText(editor);

@@ -5,11 +5,11 @@
 
 **Formats keyboard text (kbd) in your Obsidian notes quickly and consistently.**
 
-This Obsidian plugin allows you to select text within your notes and, with a simple keyboard shortcut (Ctrl+Y by default), automatically format common keyboard keys and mouse buttons using HTML `<kbd>` tags. This provides a visually distinct and semantic way to represent user input instructions in your writing.
+This Obsidian plugin allows you to select text within your notes and, with a simple keyboard shortcut of your choosing , automatically format common keyboard keys and mouse buttons using HTML `<kbd>` tags. This provides a visually distinct and semantic way to represent user input instructions in your writing.
 
 ## Features
 
-- **Effortless Formatting:** Select text containing keyboard key names and press <kbd>Ctrl</kbd> <kbd>Y</kbd> to format them. For example`ctrl shift a` will become <kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
+- **Effortless Formatting:** Select text containing keyboard key names and press a keyboard shortcut of your choosing  to format them. For example`ctrl shift a` will become <kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
 - **Special Keys Recognition:**
     - Common modifier keys: <kbd>&#9096; Ctrl</kbd> <kbd>&#8679; Shift</kbd> <kbd>&#9095; Alt</kbd> <kbd>&#8984; Cmd</kbd> <kbd>Win</kbd> etc.
     - Function keys: <kbd>F1</kbd>-<kbd>F12</kbd>
@@ -30,12 +30,13 @@ This Obsidian plugin allows you to select text within your notes and, with a sim
    - Click **Browse** and search for "Obsidian Keyboard Formatter".
    - Click **Install** and then **Enable** the plugin.
    - Alternatively, you can manually install it by copying the contents of [the latest GitHub release](https://github.com/Lauloque/Obsidian-Keyboard-Formatter/releases/latest) from this repository into your Obsidian vault's plugins folder (`<your_vault>/.obsidian/plugins/obsidian-keyboard-formatter`), then enable the plugin from your Obsidian's Community plugins list.
+   - Click the ➕ icon to set up your keyboard shortcut for this tool.
 
 2. **Format text:**
    
    - Open a Markdown note in Obsidian.
    - Select the text you want to format (e.g., `ctrl shift a`).
-   - Press the default keyboard shortcut: <kbd>&#9096; Ctrl</kbd> <kbd>Y</kbd> (Windows/Linux) or <kbd>&#8984; Cmd</kbd> <kbd>Y</kbd> (macOS ).
+   - Press the keyboard shortcut to run the tool
    - The selected text will be transformed into: `<kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>` which looks like this: <kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
 
 ## Support My Work
