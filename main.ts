@@ -4,7 +4,7 @@ export default class KeyboardFormatter extends Plugin {
     async onload() {
         this.addCommand({
             id: 'format-keyboard-text',
-            name: 'Format Keyboard Text',
+            name: 'Format keyboard text.',
             editorCallback: (editor: Editor, ctx: MarkdownView | MarkdownFileInfo) => {
                 if (ctx instanceof MarkdownView) {
                     this.formatText(editor);
