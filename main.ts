@@ -2,6 +2,7 @@ import { App, Editor, MarkdownView, MarkdownFileInfo, Modal, Notice, Plugin, Plu
 
 export default class KeyboardFormatter extends Plugin {
     async onload() {
+        document.body.addClass('fkt-plugin-active');
         this.addCommand({
             id: 'format-keyboard-text',
             name: 'Format keyboard text.',
@@ -14,6 +15,7 @@ export default class KeyboardFormatter extends Plugin {
     }
 
     async onunload() {
+        document.body.removeClass('fkt-plugin-active');
     }
 
     formatText(editor: Editor) {

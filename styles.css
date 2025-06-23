@@ -1,5 +1,5 @@
 /* Default styles (for light theme or when no preference is specified) */
-kbd {
+.fkt-plugin-active kbd {
     background-color: #e3e6e8;
     color: #333;
     border: 1px solid #ccc;
@@ -11,7 +11,7 @@ kbd {
 
 /* Dark theme variant */
 @media (prefers-color-scheme: dark) {
-    kbd {
+    .fkt-plugin-active kbd {
         background-color: #30363d;
         color: #f0f0f0;
         border: 1px solid #555;
