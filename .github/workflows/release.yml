@@ -28,7 +28,6 @@ jobs:
           mkdir keyboard-formatter
           cp main.js keyboard-formatter/
           cp manifest.json keyboard-formatter/
-          cp styles.css keyboard-formatter/
           zip -r release.zip keyboard-formatter/
           ls -l release.zip
 
@@ -41,4 +40,4 @@ jobs:
           gh release create "$tag" \
             --title="$tag" \
             --draft \
-            main.js manifest.json styles.css release.zip
+            main.js manifest.json release.zip
