@@ -5,7 +5,7 @@
 	"minAppVersion": "1.8.0",
     "description": "Format selected text into HTML <kbd> tags for representing keyboard keys and mouse inputs.",
     "author": "Lauloque",
-    "authorUrl": "https://gitlab.com/Lauloque/Obsidian-Keyboard-Formatter",
+    "authorUrl": "https://gitlab.com/Lauloque/Keyboard-Formatter",
     "fundingUrl": "https://ko-fi.com/lauloque",
     "isDesktopOnly": false
 }

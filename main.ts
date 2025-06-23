@@ -1,6 +1,6 @@
 import { App, Editor, MarkdownView, MarkdownFileInfo, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-export default class ObsidianKeyboardFormatter extends Plugin {
+export default class KeyboardFormatter extends Plugin {
     async onload() {
         this.addCommand({
             id: 'format-keyboard-text',
