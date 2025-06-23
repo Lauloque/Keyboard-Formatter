@@ -20,12 +20,11 @@ export default class KeyboardFormatter extends Plugin {
     async onload() {
         await this.loadSettings();
         
-        // Add the document class when plugin loads
+        // Add the document class and styles
         document.body.addClass('fkt-plugin-active');
-        
-        // Apply custom styles
         this.applyStyles();
         
+        // Add custom shortcut
         this.addCommand({
             id: 'format-keyboard-text',
             name: 'Format keyboard text.',
@@ -41,10 +40,8 @@ export default class KeyboardFormatter extends Plugin {
     }
 
     async onunload() {
-        // Remove the document class when plugin unloads
+        // Remove the document class and styles
         document.body.removeClass('fkt-plugin-active');
-        
-        // Remove custom styles
         this.removeStyles();
     }
 
