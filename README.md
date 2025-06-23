@@ -1,4 +1,4 @@
-# Obsidian Keyboard Formatter
+# Keyboard Formatter
 
 [![License](https://img.shields.io/badge/License-0BSD-blue?style=for-the-badge&labelColor=555555)](LICENSE)
 [![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/lauloque)
@@ -27,9 +27,9 @@ This Obsidian plugin allows you to select text within your notes and, with a sim
    - Open Obsidian.
    - Go to **Settings** -> **Community plugins**.
    - Make sure **Safe mode** is off.
-   - Click **Browse** and search for "Obsidian Keyboard Formatter".
+   - Click **Browse** and search for "Keyboard Formatter".
    - Click **Install** and then **Enable** the plugin.
-   - Alternatively, you can manually install it by copying the contents of [the latest GitHub release](https://github.com/Lauloque/Obsidian-Keyboard-Formatter/releases/latest) from this repository into your Obsidian vault's plugins folder (`<your_vault>/.obsidian/plugins/obsidian-keyboard-formatter`), then enable the plugin from your Obsidian's Community plugins list.
+   - Alternatively, you can manually install it by copying the contents of [the latest GitHub release](https://github.com/Lauloque/Obsidian-Keyboard-Formatter/releases/latest) from this repository into your Obsidian vault's plugins folder (`<your_vault>/.obsidian/plugins/keyboard-formatter`), then enable the plugin from your Obsidian's Community plugins list.
    - Click the ➕ icon to set up your keyboard shortcut for this tool.
 
 2. **Format text:**
