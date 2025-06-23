@@ -1,8 +1,31 @@
 import { App, Editor, MarkdownView, MarkdownFileInfo, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
+interface KeyboardFormatterSettings {
+    lightBgColor: string;
+    lightTextColor: string;
+    darkBgColor: string;
+    darkTextColor: string;
+}
+
+const DEFAULT_SETTINGS: KeyboardFormatterSettings = {
+    lightBgColor: '#e3e6e8',
+    lightTextColor: '#333',
+    darkBgColor: '#30363d',
+    darkTextColor: '#f0f0f0'
+}
+
 export default class KeyboardFormatter extends Plugin {
+    settings: KeyboardFormatterSettings;
+
     async onload() {
+        await this.loadSettings();
+        
+        // Add the document class when plugin loads
         document.body.addClass('fkt-plugin-active');
+        
+        // Apply custom styles
+        this.applyStyles();
+        
         this.addCommand({
             id: 'format-keyboard-text',
             name: 'Format keyboard text.',
@@ -12,10 +35,61 @@ export default class KeyboardFormatter extends Plugin {
                 }
             }
         });
+
+        // Add settings tab
+        this.addSettingTab(new KeyboardFormatterSettingTab(this.app, this));
     }
 
     async onunload() {
+        // Remove the document class when plugin unloads
         document.body.removeClass('fkt-plugin-active');
+        
+        // Remove custom styles
+        this.removeStyles();
+    }
+
+    async loadSettings() {
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    }
+
+    async saveSettings() {
+        await this.saveData(this.settings);
+        this.applyStyles(); // Reapply styles when settings change
+    }
+
+    applyStyles() {
+        // Remove existing styles first
+        this.removeStyles();
+        
+        const styleEl = document.createElement('style');
+        styleEl.id = 'fkt-plugin-styles';
+        styleEl.textContent = `
+            .fkt-plugin-active kbd {
+                background-color: ${this.settings.lightBgColor};
+                color: ${this.settings.lightTextColor};
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                padding: 2px 5px;
+                font-family: monospace;
+                font-size: 0.9em;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                .fkt-plugin-active kbd {
+                    background-color: ${this.settings.darkBgColor};
+                    color: ${this.settings.darkTextColor};
+                    border: 1px solid #555;
+                }
+            }
+        `;
+        document.head.appendChild(styleEl);
+    }
+
+    removeStyles() {
+        const existingStyle = document.getElementById('fkt-plugin-styles');
+        if (existingStyle) {
+            existingStyle.remove();
+        }
     }
 
     formatText(editor: Editor) {
@@ -49,7 +123,7 @@ export default class KeyboardFormatter extends Plugin {
                 case "command":
                 case "cmd": replacement = "&#8984; Cmd"; break;
                 case "option":
-                case "opt": replacement = "&#8997; break";
+                case "opt": replacement = "&#8997; Option"; break;
 
                 // Function Keys
                 case "f1": case "f2": case "f3": case "f4":
@@ -95,5 +169,80 @@ export default class KeyboardFormatter extends Plugin {
         }
 
         editor.replaceSelection(formattedText.join(" "));
+    }
+}
+
+class KeyboardFormatterSettingTab extends PluginSettingTab {
+    plugin: KeyboardFormatter;
+
+    constructor(app: App, plugin: KeyboardFormatter) {
+        super(app, plugin);
+        this.plugin = plugin;
+    }
+
+    display(): void {
+        const {containerEl} = this;
+
+        containerEl.empty();
+
+        containerEl.createEl('h2', {text: 'Keyboard Formatter Settings'});
+
+        // Light theme settings
+        containerEl.createEl('h3', {text: 'Light Theme Colors'});
+
+        new Setting(containerEl)
+            .setName('Background Color')
+            .setDesc('Background color for kbd elements in light theme')
+            .addColorPicker(colorPicker => colorPicker
+                .setValue(this.plugin.settings.lightBgColor)
+                .onChange(async (value) => {
+                    this.plugin.settings.lightBgColor = value;
+                    await this.plugin.saveSettings();
+                }));
+
+        new Setting(containerEl)
+            .setName('Text Color')
+            .setDesc('Text color for kbd elements in light theme')
+            .addColorPicker(colorPicker => colorPicker
+                .setValue(this.plugin.settings.lightTextColor)
+                .onChange(async (value) => {
+                    this.plugin.settings.lightTextColor = value;
+                    await this.plugin.saveSettings();
+                }));
+
+        // Dark theme settings
+        containerEl.createEl('h3', {text: 'Dark Theme Colors'});
+
+        new Setting(containerEl)
+            .setName('Background Color')
+            .setDesc('Background color for kbd elements in dark theme')
+            .addColorPicker(colorPicker => colorPicker
+                .setValue(this.plugin.settings.darkBgColor)
+                .onChange(async (value) => {
+                    this.plugin.settings.darkBgColor = value;
+                    await this.plugin.saveSettings();
+                }));
+
+        new Setting(containerEl)
+            .setName('Text Color')
+            .setDesc('Text color for kbd elements in dark theme')
+            .addColorPicker(colorPicker => colorPicker
+                .setValue(this.plugin.settings.darkTextColor)
+                .onChange(async (value) => {
+                    this.plugin.settings.darkTextColor = value;
+                    await this.plugin.saveSettings();
+                }));
+
+        // Reset button
+        new Setting(containerEl)
+            .setName('Reset to Defaults')
+            .setDesc('Reset all colors to default values')
+            .addButton(button => button
+                .setButtonText('Reset')
+                .onClick(async () => {
+                    this.plugin.settings = Object.assign({}, DEFAULT_SETTINGS);
+                    await this.plugin.saveSettings();
+                    this.display(); // Refresh the settings display
+                }));
     }
 }
