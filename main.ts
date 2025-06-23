@@ -20,11 +20,12 @@ export default class KeyboardFormatter extends Plugin {
     async onload() {
         await this.loadSettings();
         
-        // Add the document class and styles
+        // Add the document class when plugin loads
         document.body.addClass('fkt-plugin-active');
+        
+        // Apply custom styles
         this.applyStyles();
         
-        // Add custom shortcut
         this.addCommand({
             id: 'format-keyboard-text',
             name: 'Format keyboard text.',
@@ -40,8 +41,10 @@ export default class KeyboardFormatter extends Plugin {
     }
 
     async onunload() {
-        // Remove the document class and styles
+        // Remove the document class when plugin unloads
         document.body.removeClass('fkt-plugin-active');
+        
+        // Remove custom styles
         this.removeStyles();
     }
 
@@ -184,18 +187,43 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
 
         containerEl.createEl('h2', {text: 'Keyboard Formatter Settings'});
 
+        // Preview section
+        const previewContainer = containerEl.createEl('div', {cls: 'fkt-preview-container'});
+        previewContainer.createEl('h3', {text: 'Preview'});
+        
+        const previewsWrapper = previewContainer.createEl('div', {cls: 'fkt-previews-wrapper'});
+        
+        // Light theme preview
+        const lightPreview = previewsWrapper.createEl('div', {cls: 'fkt-preview-section fkt-light-preview'});
+        lightPreview.createEl('div', {text: 'Light Theme', cls: 'fkt-preview-label'});
+        const lightPreviewContent = lightPreview.createEl('div', {cls: 'fkt-preview-content'});
+        lightPreviewContent.innerHTML = '<kbd class="fkt-preview-kbd">&#9096; Ctrl</kbd> <kbd class="fkt-preview-kbd">S</kbd>';
+        
+        // Dark theme preview
+        const darkPreview = previewsWrapper.createEl('div', {cls: 'fkt-preview-section fkt-dark-preview'});
+        darkPreview.createEl('div', {text: 'Dark Theme', cls: 'fkt-preview-label'});
+        const darkPreviewContent = darkPreview.createEl('div', {cls: 'fkt-preview-content'});
+        darkPreviewContent.innerHTML = '<kbd class="fkt-preview-kbd">&#9096; Ctrl</kbd> <kbd class="fkt-preview-kbd">S</kbd>';
+
+        // Add preview styles
+        this.addPreviewStyles();
+        this.updatePreviews();
+
         // Light theme settings
         containerEl.createEl('h3', {text: 'Light Theme Colors'});
 
         new Setting(containerEl)
             .setName('Background Color')
             .setDesc('Background color for kbd elements in light theme')
-            .addColorPicker(colorPicker => colorPicker
-                .setValue(this.plugin.settings.lightBgColor)
-                .onChange(async (value) => {
+            .addColorPicker(colorPicker => {
+                colorPicker.setValue(this.plugin.settings.lightBgColor);
+                
+                colorPicker.onChange(async (value) => {
                     this.plugin.settings.lightBgColor = value;
+                    this.updatePreviews();
                     await this.plugin.saveSettings();
-                }));
+                });
+            });
 
         new Setting(containerEl)
             .setName('Text Color')
@@ -205,6 +233,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 .onChange(async (value) => {
                     this.plugin.settings.lightTextColor = value;
                     await this.plugin.saveSettings();
+                    this.updatePreviews();
                 }));
 
         // Dark theme settings
@@ -218,6 +247,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 .onChange(async (value) => {
                     this.plugin.settings.darkBgColor = value;
                     await this.plugin.saveSettings();
+                    this.updatePreviews();
                 }));
 
         new Setting(containerEl)
@@ -228,6 +258,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 .onChange(async (value) => {
                     this.plugin.settings.darkTextColor = value;
                     await this.plugin.saveSettings();
+                    this.updatePreviews();
                 }));
 
         // Reset button
@@ -241,5 +272,68 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                     await this.plugin.saveSettings();
                     this.display(); // Refresh the settings display
                 }));
+    }
+
+    addPreviewStyles() {
+        const previewStyleEl = document.createElement('style');
+        previewStyleEl.id = 'fkt-preview-styles';
+        previewStyleEl.textContent = `
+            .fkt-previews-wrapper {
+                display: flex;
+                gap: 20px;
+                margin: 15px 0;
+            }
+            
+            .fkt-preview-section {
+                flex: 1;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                border: 1px solid var(--background-modifier-border);
+            }
+            
+            .fkt-light-preview {
+                background-color: #ffffff;
+                color: #000000;
+            }
+            
+            .fkt-dark-preview {
+                background-color: #1e1e1e;
+                color: #ffffff;
+            }
+            
+            .fkt-preview-label {
+                font-weight: 600;
+                margin-bottom: 10px;
+                font-size: 0.9em;
+            }
+            
+            .fkt-preview-kbd {
+                border-radius: 3px;
+                padding: 2px 5px;
+                font-family: monospace;
+                font-size: 0.9em;
+                border: 1px solid;
+                display: inline-block;
+            }
+        `;
+        document.head.appendChild(previewStyleEl);
+    }
+
+    updatePreviews() {
+        const lightKbds = this.containerEl.querySelectorAll('.fkt-light-preview .fkt-preview-kbd') as NodeListOf<HTMLElement>;
+        const darkKbds = this.containerEl.querySelectorAll('.fkt-dark-preview .fkt-preview-kbd') as NodeListOf<HTMLElement>;
+        
+        lightKbds.forEach(kbd => {
+            kbd.style.backgroundColor = this.plugin.settings.lightBgColor;
+            kbd.style.color = this.plugin.settings.lightTextColor;
+            kbd.style.borderColor = '#ccc';
+        });
+        
+        darkKbds.forEach(kbd => {
+            kbd.style.backgroundColor = this.plugin.settings.darkBgColor;
+            kbd.style.color = this.plugin.settings.darkTextColor;
+            kbd.style.borderColor = '#555';
+        });
     }
 }
