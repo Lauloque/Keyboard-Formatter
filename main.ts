@@ -20,9 +20,9 @@ export default class KeyboardFormatter extends Plugin {
     async onload() {
         await this.loadSettings();
         
-        // Add the custom document class and style
+        // Add the custom document class and apply color variables
         document.body.addClass('fkt-plugin-active');
-        this.applyStyles();
+        this.applyCSSVariables();
         
         // Add custom keyboard shortcut
         this.addCommand({
@@ -40,9 +40,9 @@ export default class KeyboardFormatter extends Plugin {
     }
 
     async onunload() {
-        // Remove the custom document class and style
+        // Remove the custom document class
         document.body.removeClass('fkt-plugin-active');
-        this.removeStyles();
+        this.removeCSSVariables();
     }
 
     async loadSettings() {
@@ -51,42 +51,23 @@ export default class KeyboardFormatter extends Plugin {
 
     async saveSettings() {
         await this.saveData(this.settings);
-        this.applyStyles(); // Reapply styles when settings change
+        this.applyCSSVariables(); // Reapply CSS variables when settings change
     }
 
-    applyStyles() {
-        // Remove existing styles first
-        this.removeStyles();
-        
-        const styleEl = document.createElement('style');
-        styleEl.id = 'fkt-plugin-styles';
-        styleEl.textContent = `
-            .fkt-plugin-active kbd {
-                background-color: ${this.settings.lightBgColor};
-                color: ${this.settings.lightTextColor};
-                border: 1px solid #ccc;
-                border-radius: 3px;
-                padding: 2px 5px;
-                font-family: monospace;
-                font-size: 0.9em;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                .fkt-plugin-active kbd {
-                    background-color: ${this.settings.darkBgColor};
-                    color: ${this.settings.darkTextColor};
-                    border: 1px solid #555;
-                }
-            }
-        `;
-        document.head.appendChild(styleEl);
+    applyCSSVariables() {
+        // Set CSS custom properties for the colors
+        document.documentElement.style.setProperty('--fkt-light-bg-color', this.settings.lightBgColor);
+        document.documentElement.style.setProperty('--fkt-light-text-color', this.settings.lightTextColor);
+        document.documentElement.style.setProperty('--fkt-dark-bg-color', this.settings.darkBgColor);
+        document.documentElement.style.setProperty('--fkt-dark-text-color', this.settings.darkTextColor);
     }
 
-    removeStyles() {
-        const existingStyle = document.getElementById('fkt-plugin-styles');
-        if (existingStyle) {
-            existingStyle.remove();
-        }
+    removeCSSVariables() {
+        // Remove CSS custom properties
+        document.documentElement.style.removeProperty('--fkt-light-bg-color');
+        document.documentElement.style.removeProperty('--fkt-light-text-color');
+        document.documentElement.style.removeProperty('--fkt-dark-bg-color');
+        document.documentElement.style.removeProperty('--fkt-dark-text-color');
     }
 
     formatText(editor: Editor) {
@@ -194,17 +175,25 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
         const lightPreview = previewsWrapper.createEl('div', {cls: 'fkt-preview-section fkt-light-preview'});
         lightPreview.createEl('div', {text: 'Light Theme', cls: 'fkt-preview-label'});
         const lightPreviewContent = lightPreview.createEl('div', {cls: 'fkt-preview-content'});
-        lightPreviewContent.innerHTML = '<kbd class="fkt-preview-kbd">&#9096; Ctrl</kbd> <kbd class="fkt-preview-kbd">S</kbd>';
+        
+        const lightCtrlKbd = lightPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd'});
+        // Use textContent for the symbol and text separately to avoid security issues
+        lightCtrlKbd.textContent = '⌃ Ctrl';
+        lightPreviewContent.createSpan(' ');
+        lightPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd', text: 'S'});
         
         // Dark theme preview
         const darkPreview = previewsWrapper.createEl('div', {cls: 'fkt-preview-section fkt-dark-preview'});
         darkPreview.createEl('div', {text: 'Dark Theme', cls: 'fkt-preview-label'});
         const darkPreviewContent = darkPreview.createEl('div', {cls: 'fkt-preview-content'});
-        darkPreviewContent.innerHTML = '<kbd class="fkt-preview-kbd">&#9096; Ctrl</kbd> <kbd class="fkt-preview-kbd">S</kbd>';
+        
+        const darkCtrlKbd = darkPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd'});
+        darkCtrlKbd.textContent = '⌃ Ctrl';
+        darkPreviewContent.createSpan(' ');
+        darkPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd', text: 'S'});
 
-        // Add preview styles
-        this.addPreviewStyles();
-        this.updatePreviews();
+        // Update preview colors
+        this.updatePreviewColors();
 
         // Light theme settings
         containerEl.createEl('h3', {text: 'Light Theme Colors'});
@@ -217,7 +206,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 
                 colorPicker.onChange(async (value) => {
                     this.plugin.settings.lightBgColor = value;
-                    this.updatePreviews();
+                    this.updatePreviewColors();
                     await this.plugin.saveSettings();
                 });
             });
@@ -229,8 +218,8 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.lightTextColor)
                 .onChange(async (value) => {
                     this.plugin.settings.lightTextColor = value;
+                    this.updatePreviewColors();
                     await this.plugin.saveSettings();
-                    this.updatePreviews();
                 }));
 
         // Dark theme settings
@@ -243,8 +232,8 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.darkBgColor)
                 .onChange(async (value) => {
                     this.plugin.settings.darkBgColor = value;
+                    this.updatePreviewColors();
                     await this.plugin.saveSettings();
-                    this.updatePreviews();
                 }));
 
         new Setting(containerEl)
@@ -254,8 +243,8 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.darkTextColor)
                 .onChange(async (value) => {
                     this.plugin.settings.darkTextColor = value;
+                    this.updatePreviewColors();
                     await this.plugin.saveSettings();
-                    this.updatePreviews();
                 }));
 
         // Reset button
@@ -271,66 +260,11 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 }));
     }
 
-    addPreviewStyles() {
-        const previewStyleEl = document.createElement('style');
-        previewStyleEl.id = 'fkt-preview-styles';
-        previewStyleEl.textContent = `
-            .fkt-previews-wrapper {
-                display: flex;
-                gap: 20px;
-                margin: 15px 0;
-            }
-            
-            .fkt-preview-section {
-                flex: 1;
-                padding: 20px;
-                border-radius: 8px;
-                text-align: center;
-                border: 1px solid var(--background-modifier-border);
-            }
-            
-            .fkt-light-preview {
-                background-color: #ffffff;
-                color: #000000;
-            }
-            
-            .fkt-dark-preview {
-                background-color: #1e1e1e;
-                color: #ffffff;
-            }
-            
-            .fkt-preview-label {
-                font-weight: 600;
-                margin-bottom: 10px;
-                font-size: 0.9em;
-            }
-            
-            .fkt-preview-kbd {
-                border-radius: 3px;
-                padding: 2px 5px;
-                font-family: monospace;
-                font-size: 0.9em;
-                border: 1px solid;
-                display: inline-block;
-            }
-        `;
-        document.head.appendChild(previewStyleEl);
-    }
-
-    updatePreviews() {
-        const lightKbds = this.containerEl.querySelectorAll('.fkt-light-preview .fkt-preview-kbd') as NodeListOf<HTMLElement>;
-        const darkKbds = this.containerEl.querySelectorAll('.fkt-dark-preview .fkt-preview-kbd') as NodeListOf<HTMLElement>;
-        
-        lightKbds.forEach(kbd => {
-            kbd.style.backgroundColor = this.plugin.settings.lightBgColor;
-            kbd.style.color = this.plugin.settings.lightTextColor;
-            kbd.style.borderColor = '#ccc';
-        });
-        
-        darkKbds.forEach(kbd => {
-            kbd.style.backgroundColor = this.plugin.settings.darkBgColor;
-            kbd.style.color = this.plugin.settings.darkTextColor;
-            kbd.style.borderColor = '#555';
-        });
+    updatePreviewColors() {
+        // Update CSS custom properties for preview colors
+        document.documentElement.style.setProperty('--fkt-preview-light-bg', this.plugin.settings.lightBgColor);
+        document.documentElement.style.setProperty('--fkt-preview-light-text', this.plugin.settings.lightTextColor);
+        document.documentElement.style.setProperty('--fkt-preview-dark-bg', this.plugin.settings.darkBgColor);
+        document.documentElement.style.setProperty('--fkt-preview-dark-text', this.plugin.settings.darkTextColor);
     }
 }
