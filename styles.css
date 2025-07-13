@@ -1,0 +1,73 @@
+/* Keyboard Formatter Plugin Styles */
+
+/* Main kbd styling */
+.fkt-plugin-active kbd {
+    background-color: var(--fkt-light-bg-color, #e3e6e8);
+    color: var(--fkt-light-text-color, #333);
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 2px 5px;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+@media (prefers-color-scheme: dark) {
+    .fkt-plugin-active kbd {
+        background-color: var(--fkt-dark-bg-color, #30363d);
+        color: var(--fkt-dark-text-color, #f0f0f0);
+        border: 1px solid #555;
+    }
+}
+
+/* Settings preview styles */
+.fkt-previews-wrapper {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.fkt-preview-section {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--background-modifier-border);
+}
+
+.fkt-light-preview {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.fkt-dark-preview {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+.fkt-preview-label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.fkt-preview-kbd {
+    border-radius: 3px;
+    padding: 2px 5px;
+    font-family: monospace;
+    font-size: 0.9em;
+    border: 1px solid;
+    display: inline-block;
+}
+
+/* Dynamic preview styling using CSS custom properties */
+.fkt-light-preview .fkt-preview-kbd {
+    background-color: var(--fkt-preview-light-bg, #e3e6e8);
+    color: var(--fkt-preview-light-text, #333);
+    border-color: #ccc;
+}
+
+.fkt-dark-preview .fkt-preview-kbd {
+    background-color: var(--fkt-preview-dark-bg, #30363d);
+    color: var(--fkt-preview-dark-text, #f0f0f0);
+    border-color: #555;
+}
