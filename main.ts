@@ -71,7 +71,20 @@ export default class KeyboardFormatter extends Plugin {
     }
 
     formatText(editor: Editor) {
-        const selection = editor.getSelection();
+        let selection = editor.getSelection();
+        
+        // Numpad case
+        selection = selection.replace(/\b(Numpad|numpad)[\s_-]*(\d+|\+|\-|\*|\/|enter|return|dot|\.|decimal)/gi, function (match, prefix, key) {
+            console.log("REGEX MATCHED:", match, "prefix:", prefix, "key:", key);
+            if (key.toLowerCase() === "dot" || key === "." || key.toLowerCase() === "decimal") {
+                return "Numpad&nbsp;•";
+            } else if (key.toLowerCase() === "enter" || key.toLowerCase() === "return") {
+                return "Numpad&nbsp;&#9166;Enter";
+            } else {
+                return "Numpad&nbsp;" + key;
+            }
+        });
+        
         const words = selection.match(/\S+/g) || [];
         const formattedText: string[] = [];
 
@@ -137,6 +150,13 @@ export default class KeyboardFormatter extends Plugin {
                 case "scrollwheel":
                 case "mousewheel":
                 case "mw": replacement = "Wheel 🖱️"; break;
+                
+                default:
+                    if (lowerWord.startsWith('numpad')) {
+                        // Keep it as-is, it's already been processed
+                        replacement = word;
+                    }
+                    break;
             }
 
             if (replacement.length === 1) {
