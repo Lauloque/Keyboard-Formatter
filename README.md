@@ -13,7 +13,7 @@ This Obsidian plugin allows you to select text within your notes and, with a sim
 - **Special Keys Recognition:**
    - Common modifier keys: <kbd>&#9096; Ctrl</kbd> <kbd>&#8679; Shift</kbd> <kbd>&#9095; Alt</kbd> <kbd>&#8984; Cmd</kbd> <kbd>Win</kbd> etc.
    - Function keys: <kbd>F1</kbd>-<kbd>F12</kbd>
-   - Command keys <kbd>⇥ Tab</kbd>, <kbd>⌦ Delete</kbd> <kbd>⏎ Enter</kbd>
+   - Command keys <kbd>⇥ Tab</kbd>, <kbd>⌫ Delete</kbd> <kbd>⏎ Enter</kbd>
    - Directions like `up` and `left` become <kbd>↑ Up</kbd> <kbd>← Left</kbd> to mimic arrow keys
    - Numpad keys such as `numpad .` or `numpad 5`  will be formatted as <kbd>Numpad&nbsp;•</kbd> or <kbd>Numpad&nbsp;5</kbd>
 - **Mouse Button Formatting:** "lmb" as <kbd>Left 🖱️</kbd>, "rmb" as <kbd>Right 🖱️</kbd>, "mmb" as <kbd>Middle 🖱️</kbd>, and "wheel" or "scrollwheel" as <kbd>Wheel 🖱️</kbd>.

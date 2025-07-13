@@ -125,8 +125,9 @@ export default class KeyboardFormatter extends Plugin {
 
                 // Navigation & Special Keys
                 case "tab": replacement = "&#8633; Tab"; break;
+                case "erase":
                 case "delete":
-                case "del": replacement = "&#8998; Delete"; break;
+                case "del": replacement = "&#9003; Delete"; break;
                 case "enter":
                 case "return": replacement = "&#9166; Enter"; break;
                 case "backspace": replacement = "&#10229; Backspace"; break;
