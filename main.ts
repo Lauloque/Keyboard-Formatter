@@ -184,11 +184,9 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
 
         containerEl.empty();
 
-        containerEl.createEl('h2', {text: 'Keyboard formatter settings'});
-
         // Preview section
         const previewContainer = containerEl.createEl('div', {cls: 'fkt-preview-container'});
-        previewContainer.createEl('h3', {text: 'Preview'});
+        new Setting(previewContainer).setName('Preview').setHeading();
         
         const previewsWrapper = previewContainer.createEl('div', {cls: 'fkt-previews-wrapper'});
         
@@ -217,7 +215,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
         this.updatePreviewColors();
 
         // Light theme settings
-        containerEl.createEl('h3', {text: 'Light theme colors'});
+        new Setting(containerEl).setName('Light theme colors').setHeading();
 
         new Setting(containerEl)
             .setName('Background color')
@@ -244,7 +242,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 }));
 
         // Dark theme settings
-        containerEl.createEl('h3', {text: 'Dark theme colors'});
+        new Setting(containerEl).setName('Dark theme colors').setHeading();
 
         new Setting(containerEl)
             .setName('Background color')
