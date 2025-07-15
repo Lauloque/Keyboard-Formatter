@@ -75,7 +75,6 @@ export default class KeyboardFormatter extends Plugin {
         
         // Numpad case
         selection = selection.replace(/\b(Numpad|numpad)[\s_-]*(\d+|\+|\-|\*|\/|enter|return|dot|\.|decimal)/gi, function (match, prefix, key) {
-            console.log("REGEX MATCHED:", match, "prefix:", prefix, "key:", key);
             if (key.toLowerCase() === "dot" || key === "." || key.toLowerCase() === "decimal") {
                 return "Numpad&nbsp;•";
             } else if (key.toLowerCase() === "enter" || key.toLowerCase() === "return") {
