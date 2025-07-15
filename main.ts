@@ -184,7 +184,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
 
         containerEl.empty();
 
-        containerEl.createEl('h2', {text: 'Keyboard Formatter Settings'});
+        containerEl.createEl('h2', {text: 'Keyboard formatter settings'});
 
         // Preview section
         const previewContainer = containerEl.createEl('div', {cls: 'fkt-preview-container'});
@@ -194,22 +194,22 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
         
         // Light theme preview
         const lightPreview = previewsWrapper.createEl('div', {cls: 'fkt-preview-section fkt-light-preview'});
-        lightPreview.createEl('div', {text: 'Light Theme', cls: 'fkt-preview-label'});
+        lightPreview.createEl('div', {text: 'Light theme', cls: 'fkt-preview-label'});
         const lightPreviewContent = lightPreview.createEl('div', {cls: 'fkt-preview-content'});
         
         const lightCtrlKbd = lightPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd'});
         // Use textContent for the symbol and text separately to avoid security issues
-        lightCtrlKbd.textContent = '⌃ Ctrl';
+        lightCtrlKbd.textContent = '⎈ Ctrl';
         lightPreviewContent.createSpan(' ');
         lightPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd', text: 'S'});
         
         // Dark theme preview
         const darkPreview = previewsWrapper.createEl('div', {cls: 'fkt-preview-section fkt-dark-preview'});
-        darkPreview.createEl('div', {text: 'Dark Theme', cls: 'fkt-preview-label'});
+        darkPreview.createEl('div', {text: 'Dark theme', cls: 'fkt-preview-label'});
         const darkPreviewContent = darkPreview.createEl('div', {cls: 'fkt-preview-content'});
         
         const darkCtrlKbd = darkPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd'});
-        darkCtrlKbd.textContent = '⌃ Ctrl';
+        darkCtrlKbd.textContent = '⎈ Ctrl';
         darkPreviewContent.createSpan(' ');
         darkPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd', text: 'S'});
 
@@ -217,10 +217,10 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
         this.updatePreviewColors();
 
         // Light theme settings
-        containerEl.createEl('h3', {text: 'Light Theme Colors'});
+        containerEl.createEl('h3', {text: 'Light theme colors'});
 
         new Setting(containerEl)
-            .setName('Background Color')
+            .setName('Background color')
             .setDesc('Background color for kbd elements in light theme')
             .addColorPicker(colorPicker => {
                 colorPicker.setValue(this.plugin.settings.lightBgColor);
@@ -233,7 +233,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
             });
 
         new Setting(containerEl)
-            .setName('Text Color')
+            .setName('Text color')
             .setDesc('Text color for kbd elements in light theme')
             .addColorPicker(colorPicker => colorPicker
                 .setValue(this.plugin.settings.lightTextColor)
@@ -244,10 +244,10 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 }));
 
         // Dark theme settings
-        containerEl.createEl('h3', {text: 'Dark Theme Colors'});
+        containerEl.createEl('h3', {text: 'Dark theme colors'});
 
         new Setting(containerEl)
-            .setName('Background Color')
+            .setName('Background color')
             .setDesc('Background color for kbd elements in dark theme')
             .addColorPicker(colorPicker => colorPicker
                 .setValue(this.plugin.settings.darkBgColor)
@@ -258,7 +258,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
                 }));
 
         new Setting(containerEl)
-            .setName('Text Color')
+            .setName('Text color')
             .setDesc('Text color for kbd elements in dark theme')
             .addColorPicker(colorPicker => colorPicker
                 .setValue(this.plugin.settings.darkTextColor)
@@ -270,7 +270,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
 
         // Reset button
         new Setting(containerEl)
-            .setName('Reset to Defaults')
+            .setName('Reset to defaults')
             .setDesc('Reset all colors to default values')
             .addButton(button => button
                 .setButtonText('Reset')
