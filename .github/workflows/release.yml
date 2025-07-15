@@ -29,6 +29,7 @@ jobs:
           mkdir keyboard-formatter
           cp main.js keyboard-formatter/
           cp manifest.json keyboard-formatter/
+          cp styles.css keyboard-formatter/
           zip -r release.zip keyboard-formatter/
           ls -l release.zip
 
