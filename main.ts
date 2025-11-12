@@ -94,9 +94,9 @@ export default class KeyboardFormatter extends Plugin {
             switch (lowerWord) {
                 // Modifier Keys
                 case "control":
-                case "ctrl": replacement = "&#9096; Ctrl"; break;
+                case "ctrl": replacement = "&#8963; Ctrl"; break;
                 case "shift": replacement = "&#8679; Shift"; break;
-                case "alt": replacement = "&#9095; Alt"; break;
+                case "alt": replacement = "&#8999; Alt"; break;
                 case "caps":
                 case "capslock": replacement = "&#8682; Caps Lock"; break;
 
@@ -108,8 +108,8 @@ export default class KeyboardFormatter extends Plugin {
                 case "super":
                 case "linux":
                 case "linuxkey":
-                case "tuxkey": replacement = "&#8984; Super"; break;
-                case "meta": replacement = "&#9670; Meta"; break;
+                case "tuxkey": replacement = "&#10054; Super"; break;
+                case "meta": replacement = "&#9830; Meta"; break;
                 case "command":
                 case "cmd": replacement = "&#8984; Cmd"; break;
                 case "option":
@@ -123,13 +123,13 @@ export default class KeyboardFormatter extends Plugin {
                     break;
 
                 // Navigation & Special Keys
-                case "tab": replacement = "&#8633; Tab"; break;
+                case "tab": replacement = "&#8677; Tab"; break;
                 case "erase":
                 case "delete":
-                case "del": replacement = "&#9003; Delete"; break;
+                case "del": replacement = "&#9062; Delete"; break;
                 case "enter":
                 case "return": replacement = "&#9166; Enter"; break;
-                case "backspace": replacement = "&#10229; Backspace"; break;
+                case "backspace": replacement = "&#9003; Backspace"; break;
                 case "pageup":
                 case "pgup": replacement = "&#8670; Page Up"; break;
                 case "pagedown":
@@ -196,7 +196,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
         
         const lightCtrlKbd = lightPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd'});
         // Use textContent for the symbol and text separately to avoid security issues
-        lightCtrlKbd.textContent = '⎈ Ctrl';
+        lightCtrlKbd.textContent = '⌃ Ctrl';
         lightPreviewContent.createSpan(' ');
         lightPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd', text: 'S'});
         
@@ -206,7 +206,7 @@ class KeyboardFormatterSettingTab extends PluginSettingTab {
         const darkPreviewContent = darkPreview.createEl('div', {cls: 'fkt-preview-content'});
         
         const darkCtrlKbd = darkPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd'});
-        darkCtrlKbd.textContent = '⎈ Ctrl';
+        darkCtrlKbd.textContent = '⌃ Ctrl';
         darkPreviewContent.createSpan(' ');
         darkPreviewContent.createEl('kbd', {cls: 'fkt-preview-kbd', text: 'S'});
 
