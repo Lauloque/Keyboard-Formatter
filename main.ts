@@ -98,22 +98,22 @@ export default class KeyboardFormatter extends Plugin {
                 case "shift": replacement = "⇧ Shift"; break;
                 case "alt": replacement = "⎇ Alt"; break;
                 case "caps":
-                case "capslock": replacement = "&#8682; Caps Lock"; break;
+                case "capslock": replacement = "⇪ Caps Lock"; break;
 
                 // OS Keys
                 case "win":
                 case "windows":
                 case "windowskey":
-                case "winkey": replacement = "Win"; break;
+                case "winkey": replacement = "⊞ Win"; break;
                 case "super":
                 case "linux":
                 case "linuxkey":
                 case "tuxkey": replacement = "❖ Super"; break;
                 case "meta": replacement = "◆ Meta"; break;
                 case "command":
-                case "cmd": replacement = "&#8984; Cmd"; break;
+                case "cmd": replacement = "⌘ Cmd"; break;
                 case "option":
-                case "opt": replacement = "&#8997; Option"; break;
+                case "opt": replacement = "⌥ Option"; break;
 
                 // Function Keys
                 case "f1": case "f2": case "f3": case "f4":
@@ -133,16 +133,16 @@ export default class KeyboardFormatter extends Plugin {
                 case "escape": replacement = "⎋ Esc"; break;
                 case "backspace": replacement = "⌫ Backspace"; break;
                 case "pageup":
-                case "pgup": replacement = "&#8670; Page Up"; break;
+                case "pgup": replacement = "⇞ Page Up"; break;
                 case "pagedown":
-                case "pgdn": replacement = "&#8671; Page Down"; break;
-                case "printscreen": replacement = "&#9113; Print Screen"; break;
+                case "pgdn": replacement = "⇟ Page Down"; break;
+                case "printscreen": replacement = "⎙ Print Screen"; break;
 
                 // Arrow Keys
-                case "up": replacement = "&#8593; Up"; break;
-                case "left": replacement = "&#8592; Left"; break;
-                case "right": replacement = "&#8594; Right"; break;
-                case "down": replacement = "&#8595; Down"; break;
+                case "up": replacement = "↑ Up"; break;
+                case "left": replacement = "← Left"; break;
+                case "right": replacement = "→ Right"; break;
+                case "down": replacement = "↓ Down"; break;
 
                 // Mouse Buttons
                 case "lmb": replacement = "Left 🖱️"; break;
