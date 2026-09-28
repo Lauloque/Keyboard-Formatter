@@ -129,6 +129,8 @@ export default class KeyboardFormatter extends Plugin {
                 case "del": replacement = "⌦ Delete"; break;
                 case "enter":
                 case "return": replacement = "↵ Enter"; break;
+                case "esc":
+                case "escape": replacement = "⎋ Esc"; break;
                 case "backspace": replacement = "⌫ Backspace"; break;
                 case "pageup":
                 case "pgup": replacement = "&#8670; Page Up"; break;
