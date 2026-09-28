@@ -94,9 +94,9 @@ export default class KeyboardFormatter extends Plugin {
             switch (lowerWord) {
                 // Modifier Keys
                 case "control":
-                case "ctrl": replacement = "&#8963; Ctrl"; break;
-                case "shift": replacement = "&#8679; Shift"; break;
-                case "alt": replacement = "&#8999; Alt"; break;
+                case "ctrl": replacement = "⌃ Ctrl"; break;
+                case "shift": replacement = "⇧ Shift"; break;
+                case "alt": replacement = "⎇ Alt"; break;
                 case "caps":
                 case "capslock": replacement = "&#8682; Caps Lock"; break;
 
@@ -108,8 +108,8 @@ export default class KeyboardFormatter extends Plugin {
                 case "super":
                 case "linux":
                 case "linuxkey":
-                case "tuxkey": replacement = "&#10054; Super"; break;
-                case "meta": replacement = "&#9830; Meta"; break;
+                case "tuxkey": replacement = "❖ Super"; break;
+                case "meta": replacement = "◆ Meta"; break;
                 case "command":
                 case "cmd": replacement = "&#8984; Cmd"; break;
                 case "option":
@@ -123,13 +123,13 @@ export default class KeyboardFormatter extends Plugin {
                     break;
 
                 // Navigation & Special Keys
-                case "tab": replacement = "&#8677; Tab"; break;
+                case "tab": replacement = "⇥ Tab"; break;
                 case "erase":
                 case "delete":
-                case "del": replacement = "&#9062; Delete"; break;
+                case "del": replacement = "⌦ Delete"; break;
                 case "enter":
-                case "return": replacement = "&#9166; Enter"; break;
-                case "backspace": replacement = "&#9003; Backspace"; break;
+                case "return": replacement = "↵ Enter"; break;
+                case "backspace": replacement = "⌫ Backspace"; break;
                 case "pageup":
                 case "pgup": replacement = "&#8670; Page Up"; break;
                 case "pagedown":
