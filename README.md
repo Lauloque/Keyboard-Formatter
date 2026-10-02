@@ -93,6 +93,19 @@ This is a simple summary of [the official sample-plugin docs](https://github.com
 	-  Disable/re-enable it in Obsidian
 	- Use a hot-reload plugin such as [this one](https://forum.obsidian.md/t/plugin-release-for-developers-hot-reload-the-plugin-s-youre-developing/12185?utm_source=chatgpt.com)
 
+### Update the release
+
+Following: [Using GitHub actions to create releases for plugins - Obsidian Hub - Obsidian Publish](https://publish.obsidian.md/hub/04+-+Guides%2C+Workflows%2C+%26+Courses/Guides/Using+GitHub+actions+to+create+releases+for+plugins)
+
+After validating the changes, gotta make a new release available to Obsidian's repo.
+
+
+1. Update the manifest.json with the right version, commit and push it.
+use git tag <version number>, e.g. <git tag 1.0.0 using [semantic versioning](https://semver.org/).
+2. Push the new tag to GitHub `git push origin --tags`
+GitHub takes care of the rest
+
+
 ## Support My Work
 
 [![Support me on Ko-fi](https://img.shields.io/badge/Support-Ko--fi-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/lauloque)
