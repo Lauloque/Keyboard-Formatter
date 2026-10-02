@@ -135,6 +135,7 @@ export default class KeyboardFormatter extends Plugin {
                 case "pageup":
                 case "pgup": replacement = "⇞ Page Up"; break;
                 case "pagedown":
+                case "pgdown":
                 case "pgdn": replacement = "⇟ Page Down"; break;
                 case "printscreen": replacement = "⎙ Print Screen"; break;
 
