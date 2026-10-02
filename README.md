@@ -101,7 +101,7 @@ After validating the changes, gotta make a new release available to Obsidian's r
 
 
 1. Update the manifest.json with the right version, commit and push it.
-use git tag <version number>, e.g. <git tag 1.0.0 using [semantic versioning](https://semver.org/).
+use git tag <version number>, e.g. `git tag 1.0.0` using [semantic versioning](https://semver.org/).
 2. Push the new tag to GitHub `git push origin --tags`
 GitHub takes care of the rest
 
