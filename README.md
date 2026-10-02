@@ -9,13 +9,13 @@ This Obsidian plugin allows you to select text within your notes and, with a sim
 
 ## Features
 
-- **Effortless Formatting:** Select text containing keyboard key names and press a keyboard shortcut of your choosing to format them. For example`ctrl shift a` will become <kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
+- **Effortless Formatting:** Select text containing keyboard key names and press a keyboard shortcut of your choosing  to format them. For example`ctrl shift a` will become <kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
 - **Special Keys Recognition:**
-    - Common modifier keys: <kbd>&#9096; Ctrl</kbd> <kbd>&#8679; Shift</kbd> <kbd>&#9095; Alt</kbd> <kbd>&#8984; Cmd</kbd> <kbd>Win</kbd> etc.
-    - Function keys: <kbd>F1</kbd>-<kbd>F12</kbd>
-    - Command keys <kbd>⇥ Tab</kbd>, <kbd>⌫ Delete</kbd> <kbd>⏎ Enter</kbd>
-    - Directions like `up` and `left` become <kbd>↑ Up</kbd> <kbd>← Left</kbd> to mimic arrow keys
-    - Numpad keys such as `numpad .` or `numpad 5` will be formatted as <kbd>Numpad&nbsp;•</kbd> or <kbd>Numpad&nbsp;5</kbd>
+   - Common modifier keys: <kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>⎇ Alt</kbd> <kbd>⌘ Cmd</kbd> <kbd>Win</kbd> etc.
+   - Function keys: <kbd>F1</kbd>-<kbd>F12</kbd>
+   - Command keys <kbd>⇥ Tab</kbd>, <kbd>⌦ Delete</kbd> <kbd>⏎ Enter</kbd> <kbd>⌫ Backspace</kbd>
+   - Directions like `up` and `left` become <kbd>↑ Up</kbd> <kbd>← Left</kbd> to mimic arrow keys
+   - Numpad keys such as `numpad .` or `numpad 5`  will be formatted as <kbd>Numpad&nbsp;•</kbd> or <kbd>Numpad&nbsp;5</kbd>
 - **Mouse Button Formatting:** "lmb" as <kbd>Left 🖱️</kbd>, "rmb" as <kbd>Right 🖱️</kbd>, "mmb" as <kbd>Middle 🖱️</kbd>, and "wheel" or "scrollwheel" as <kbd>Wheel 🖱️</kbd>.
 - **Case-Insensitive Matching:** Key names are recognized regardless of their capitalization (e.g., "Ctrl", "ctrl", and "CTRL" all become <kbd>⌘ Ctrl</kbd>).
 - **Single Letter Capitalization:** Capitalizes single-letter words (useful for individual key presses), like "a" becoming <kbd>A</kbd>.
@@ -36,10 +36,44 @@ This Obsidian plugin allows you to select text within your notes and, with a sim
 
 2. **Format text:**
 
-    - Open a Markdown note in Obsidian.
-    - Select the text you want to format (e.g., `ctrl shift a`).
-    - Press the keyboard shortcut to run the tool
-    - The selected text will be transformed into: `<kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>` which looks like this: <kbd>⌘ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
+   - Open a Markdown note in Obsidian.
+   - Select the text you want to format (e.g., `ctrl shift a`).
+   - Press the keyboard shortcut to run the tool
+   - The selected text will be transformed into: `<kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>` which looks like this: <kbd>⌃ Ctrl</kbd> <kbd>⇧ Shift</kbd> <kbd>A</kbd>.
+
+## Keyboard Symbols Reference
+
+This plugin uses **cross-platform Unicode symbols** for keyboard keys to ensure consistency across different platforms and applications. Here's the mapping of symbols used:
+
+### Modifier Keys
+
+| Symbol | Key          |
+| ------ | ------------ |
+| ⌃      | Control/Ctrl |
+| ⇧      | Shift        |
+| ⎇      | Alt          |
+| ⌥      | Option       |
+| ⌘      | Command/Cmd  |
+
+### Navigation & Special Keys
+
+| Symbol | Key                |
+| ------ | ------------------ |
+| ⇥      | Tab                |
+| ⏎      | Enter/Return       |
+| ⌫      | Backspace          |
+| ⌦      | Delete             |
+| ⇪      | Caps Lock          |
+| ⎋      | Esc                |
+| ↑←→↓   | Directional Arrows |
+
+### Super/Meta Keys
+
+| Symbol | Key   |
+| ------ | ----- |
+| ⊞      | Win   |
+| ❖      | Super |
+| ◆      | Meta  |
 
 ## Contribute
 
